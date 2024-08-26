@@ -1,3 +1,4 @@
+import { Head } from "@inertiajs/react";
 import { Toaster } from "sonner";
 
 /**
@@ -23,6 +24,6 @@ function RootLayout({ title, children }) {
     );
 }
 
-export { RootLayout, RootLayoutProps };
+export { RootLayout };
 
 

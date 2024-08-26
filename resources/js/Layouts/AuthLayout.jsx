@@ -1,3 +1,5 @@
+import { RootLayout } from './RootLayout';
+
 /**
  * @typedef {import('./RootLayout').RootLayoutProps} AuthLayoutProps
  */
