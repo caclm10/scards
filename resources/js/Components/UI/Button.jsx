@@ -81,6 +81,7 @@ const Button = React.forwardRef(
             size,
             asChild = false,
             isLoading = false,
+            disabled = false,
             ...props
         },
         ref
@@ -89,6 +90,7 @@ const Button = React.forwardRef(
         return (
             <ButtonProvider size={size} isLoading={isLoading}>
                 <Comp
+                    disabled={disabled || isLoading}
                     className={cn(buttonVariants({ variant, size, className }))}
                     ref={ref}
                     {...props}
