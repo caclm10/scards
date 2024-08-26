@@ -30,6 +30,7 @@
 
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
+    --destructive-muted: 0 97.1% 95.2%;
 
     --ring: 215 20.2% 65.1%;
 
@@ -63,19 +64,20 @@
 
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
+    --destructive-muted: 0 39% 87%;
 
     --ring: 216 34% 17%;
-
-    --radius: 1rem;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
+
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

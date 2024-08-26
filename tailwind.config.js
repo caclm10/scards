@@ -1,4 +1,5 @@
 import defaultTheme from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 import tailwindcssAnimate from "tailwindcss-animate";
 
 /** @type {import("tailwindcss").Config} */
@@ -79,6 +80,16 @@ export default {
         },
     },
     plugins: [
-        tailwindcssAnimate
+        tailwindcssAnimate,
+        plugin(function ({ addComponents }) {
+            addComponents({
+                ".anchor": {
+                    color: "hsl(var(--primary))",
+                    "&:hover": {
+                        textDecorationLine: "underline"
+                    }
+                }
+            })
+        })
     ],
 };
