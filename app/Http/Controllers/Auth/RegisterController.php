@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -19,9 +20,9 @@ class RegisterController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:8',
+            'name' => ['required', 'max:255', 'string'],
+            'email' => ['required', 'max:255', 'email', Rule::unique('users', 'email')],
+            'password' => ['required', 'min:6', 'max:20'],
         ]);
 
         $user = User::create([
@@ -30,7 +31,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
+        Auth::login($user, $request->boolean('remember'));
 
         $request->session()->regenerate();
 

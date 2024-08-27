@@ -6,12 +6,14 @@ import { Label } from "@/Components/UI/Label";
 import { Input, InputIcon } from "@/Components/UI/Input";
 import { FormErrorMessage } from "@/Components/UI/Form";
 import { AuthCardAction } from "./AuthCardAction";
+import { Checkbox } from "../UI/Checkbox";
 
 /**
  * @typedef {Object} Inputs
  * @property {string} name
  * @property {string} email
  * @property {string} password
+ * @property {import("@radix-ui/react-checkbox").CheckedState} remember
  */
 
 function RegisterForm() {
@@ -19,8 +21,9 @@ function RegisterForm() {
     const form = useForm({
         name: "",
         email: "",
-        password: ""
-    })
+        password: "",
+        remember: false,
+    });
 
     /** @param {React.ChangeEvent<HTMLInputElement>} event */
     function handleChangeName(event) {
@@ -35,6 +38,11 @@ function RegisterForm() {
     /** @param {React.ChangeEvent<HTMLInputElement>} event */
     function handleChangePassword(event) {
         form.setData("password", event.target.value);
+    }
+
+    /** @param {import("@radix-ui/react-checkbox").CheckedState} checked */
+    function handleChangeRemember(checked) {
+        form.setData("remember", checked);
     }
 
     /** @param {React.FormEvent<HTMLFormElement>} event */
@@ -93,6 +101,14 @@ function RegisterForm() {
                         />
                     </div>
                     <FormErrorMessage message={form.errors.password} />
+                </div>
+                <div className="flex items-center gap-x-2">
+                    <Checkbox
+                        id="remember"
+                        checked={form.data.remember}
+                        onCheckedChange={handleChangeRemember}
+                    />
+                    <Label htmlFor="remember">Remembe me?</Label>
                 </div>
             </CardContent>
 
