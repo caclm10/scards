@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -31,6 +32,17 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
+    /**
+     * Get the cards for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cards(): HasMany
+    {
+        return $this->hasMany(Card::class);
+    }
 
     /**
      * Get the attributes that should be cast.
