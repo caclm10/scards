@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\InertiaHelper;
 use App\Models\Card;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -22,12 +23,12 @@ class CardController extends Controller
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $request->validate([
-            'title' => ['required', 'max:255'],
-            'content' => ['nullable'],
-        ]);
+        /** @var \App\Models\User */
+        $user = $request->user();
 
-        (new Card($request->only(['title', 'content'])))->save();
+        $card = $user->cards()->create(['title' => 'Untitled']);
+
+        InertiaHelper::flash(['new_card_id' => $card->id]);
 
         return back();
     }

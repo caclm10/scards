@@ -1,6 +1,6 @@
 import { AppLayout } from "@/Layouts/AppLayout";
-// import { CardList } from "@/Components/Card/CardList";
-// import { NewCardButton } from "@/Components/Card/NewCardButton";
+import { CardList } from "@/Components/Card/CardList";
+import { NewCardButton } from "@/Components/Card/NewCardButton";
 
 
 /**
@@ -12,12 +12,12 @@ function CardsPage({ cards }) {
     return (
         <>
             <div className="flex justify-end">
-                {/* <NewCardButton /> */}
+                <NewCardButton />
             </div>
 
             <div className="h-6"></div>
 
-            {/* <CardList data={cards} /> */}
+            <CardList data={cards} />
         </>
     );
 }
