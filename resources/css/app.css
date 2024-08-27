@@ -81,3 +81,11 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+.swiper-thumbs .swiper-slide {
+  opacity: 0.4;
+}
+
+.swiper-thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+}
