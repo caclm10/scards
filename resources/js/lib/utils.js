@@ -1,12 +1,18 @@
-import clsx from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 
-/**
- * Merges tailwind classes using tailwind-merge and clsx.
- *
- * @param {import("clsx").ClassValue[]} inputs - The classes to merge.
- * @returns {string} The merged classes.
- */
+/** @param {import("clsx").ClassValue[]} inputs */
 export function cn(...inputs) {
     return twMerge(clsx(inputs))
+}
+
+/** @param {string} name */
+export function getInitials(name) {
+    const first = name.match(/(^\S\S?|\b\S)?/g);
+    if (!first) return "";
+
+    const second = first.join("").match(/(^\S|\S$)?/g);
+    if (!second) return first.join("").toUpperCase();
+
+    return second.join("").toUpperCase()
 }
