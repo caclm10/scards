@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Rules\AlphaSpace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,7 @@ class RegisterController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'max:255', 'string'],
+            'name' => ['required', 'max:255', new AlphaSpace],
             'email' => ['required', 'max:255', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'min:6', 'max:20'],
         ]);
