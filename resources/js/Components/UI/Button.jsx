@@ -134,11 +134,13 @@ const ButtonIcon = React.forwardRef(
 
         const Element = icon;
 
+        console.log(size)
+
         return (
             <Element
                 ref={ref}
                 stroke={stroke}
-                className={buttonIconVariants({ size, className })}
+                className={cn(buttonIconVariants({ size, className }))}
                 {...props}
             />
         );
