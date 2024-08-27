@@ -77,7 +77,6 @@ function RegisterForm() {
                         <Input
                             id="email"
                             placeholder="Email address"
-                            type="email"
                             className="pl-10"
                             value={form.data.email}
                             isInvalid={!!form.errors.email}
