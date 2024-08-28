@@ -1,19 +1,21 @@
 import { useState } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { FreeMode, Thumbs } from "swiper/modules"
-import { IconPhoto, IconPlus } from "@tabler/icons-react"
+import { IconPhoto } from "@tabler/icons-react"
 
-import { Button, ButtonIcon } from "@/Components/UI/Button"
 import { CardImageDeleteButton } from "./CardImageDeleteButton"
+import { CardAddImageButton } from "./CardAddImageButton"
+import { useCardImages } from "@/hooks/use-card"
 
 /**
  * @typedef {Object} CardDetailImagesProps
- * @property {import("@/models/card").CardImage[]} data
  * @property {number} cardId
  */
 
 /** @param {CardDetailImagesProps} props */
-function CardDetailImages({ data, cardId }) {
+function CardDetailImages({ cardId }) {
+    const { images } = useCardImages(cardId)
+
     /** @type {ReturnType<typeof useState<import("swiper/types").Swiper | null>>} */
     const [thumbsSwiper, setThumbsSwiper] = useState(null)
 
@@ -27,7 +29,7 @@ function CardDetailImages({ data, cardId }) {
     return (
         <>
             <div className="mb-4">
-                {data.length === 0 && (
+                {images && images.length === 0 && (
                     <div className="mb-2 flex aspect-video w-full items-center justify-center bg-muted text-muted-foreground">
                         <div className="flex flex-col items-center gap-y-1.5">
                             <IconPhoto stroke={1.5} className="size-6" />
@@ -35,12 +37,13 @@ function CardDetailImages({ data, cardId }) {
                         </div>
                     </div>
                 )}
-                {data.length > 0 && (
+
+                {images && images.length > 0 && (
                     <>
-                        <div className="mb-2 flex items-center justify-end">
+                        <div className="mb-3 flex items-center justify-end">
                             <CardImageDeleteButton
                                 id={cardId}
-                                imageId={data[currentImage].id}
+                                imageId={images[currentImage].id}
                             />
                         </div>
                         <Swiper
@@ -49,7 +52,7 @@ function CardDetailImages({ data, cardId }) {
                             modules={[FreeMode, Thumbs]}
                             onActiveIndexChange={handleActiveIndexChange}
                         >
-                            {data.map((image) => (
+                            {images.map((image) => (
                                 <SwiperSlide key={image.id}>
                                     <img
                                         src={image.url}
@@ -64,16 +67,7 @@ function CardDetailImages({ data, cardId }) {
 
                 <div className="flex items-center gap-x-2">
                     <div>
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            className="size-12"
-                        >
-                            <ButtonIcon
-                                icon={IconPlus}
-                                className="text-muted-foreground"
-                            />
-                        </Button>
+                        <CardAddImageButton id={cardId} />
                     </div>
 
                     <Swiper
@@ -85,7 +79,7 @@ function CardDetailImages({ data, cardId }) {
                         className="swiper-thumbs mx-0"
                         onSwiper={(swiper) => setThumbsSwiper(swiper)}
                     >
-                        {data.map((image) => (
+                        {images && images.map((image) => (
                             <SwiperSlide
                                 key={image.id}
                                 className="aspect-square size-12 overflow-hidden rounded-md"

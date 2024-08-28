@@ -41,17 +41,17 @@ function CardDetail({ item }) {
                 </Button>
             </SheetTrigger>
             <SheetContent className="overflow-auto">
+                <div className="mb-2 flex items-center gap-x-3">
+                    <Button type="button" size="icon-sm" variant="outline" onClick={handleClickEdit}>
+                        <ButtonIcon icon={IconPencil} />
+                    </Button>
+
+                    <CardDeleteButton id={item.id} title={item.title} />
+                </div>
+
+                <CardDetailImages cardId={item.id} />
+
                 <SheetHeader>
-                    <div className="mb-2 flex items-center gap-x-3">
-                        <Button type="button" size="icon-sm" variant="outline" onClick={handleClickEdit}>
-                            <ButtonIcon icon={IconPencil} />
-                        </Button>
-
-                        <CardDeleteButton id={item.id} title={item.title} />
-                    </div>
-
-                    <CardDetailImages data={item.images} cardId={item.id} />
-
                     {!isEditingMode && (
                         <SheetTitle>{item.title}</SheetTitle>
                     )}
