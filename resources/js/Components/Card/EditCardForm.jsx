@@ -48,10 +48,6 @@ function EditCardForm({ data, onIsEditingModeChange }) {
 
         form.patch(`/cards/${data.id}`, {
             onSuccess: () => {
-                toast.success("Card updated", {
-                    description: "Your card has been updated successfully.",
-                    position: "bottom-left"
-                })
                 onIsEditingModeChange(false)
             }
         })
