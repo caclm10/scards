@@ -134,8 +134,6 @@ const ButtonIcon = React.forwardRef(
 
         const Element = icon;
 
-        console.log(size)
-
         return (
             <Element
                 ref={ref}
