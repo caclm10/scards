@@ -4,6 +4,7 @@ use App\Http\Controllers\Account\PasswordController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\CardImageController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +27,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('cards', CardController::class)
         ->only(['index', 'store', 'update', 'destroy']);
+
+    Route::resource('cards.images', CardImageController::class)
+        ->only(['index', 'store']);
 });
 
 require __DIR__ . '/auth.php';
