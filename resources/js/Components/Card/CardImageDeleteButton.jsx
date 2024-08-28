@@ -23,10 +23,11 @@ import { useCardImages } from "@/hooks/use-card"
  * @typedef {Object} CardImageDeleteButtonProps
  * @property {import("@/models/card").Card["id"]} id
  * @property {import("@/models/card").CardImage["id"]} imageId
+ * @property {() => void} onDeleted
  */
 
 /** @param {CardImageDeleteButtonProps} props */
-function CardImageDeleteButton({ id, imageId }) {
+function CardImageDeleteButton({ id, imageId, onDeleted }) {
     const { mutate } = useCardImages(id)
     const [isProcessing, setIsProcessing] = useState(false)
 
@@ -37,6 +38,8 @@ function CardImageDeleteButton({ id, imageId }) {
             await axios.delete(`/cards/${id}/images/${imageId}`)
 
             await mutate()
+
+            onDeleted()
         } catch (error) {
             toast.error("Uh oh, something went wrong", {
                 description: isAxiosError(error) ? error.response.data.message || "Unknown error occurred." : "Unknown error occurred."
