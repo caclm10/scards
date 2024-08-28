@@ -4,7 +4,7 @@
 
 /**
  * @template {Record<string, unknown>} T
- * @typedef {T & {auth: {user: User}}} PageProps
+ * @typedef {T & {auth: {user: User}, csrf_token: string}} PageProps
  */
 
 
