@@ -16,6 +16,7 @@ import { CardDeleteButton } from "./CardDeleteButton";
 import { CardDetailImages } from "./CardDetailImages";
 import { EditCardForm } from "./EditCardForm";
 import { VisuallyHidden } from "../UI/VisuallyHidden";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 /**
  * @typedef {object} CardDetailProps
@@ -26,6 +27,8 @@ import { VisuallyHidden } from "../UI/VisuallyHidden";
 function CardDetail({ item }) {
     /** @type {import("@/models/page").PageProps<{new_card_id?: number}>} */
     const { new_card_id } = usePageProps();
+
+    const isDesktop = useMediaQuery("(min-width: 768px)")
 
     const [isEditingMode, setIsEditingMode] = useState(false)
 
@@ -40,7 +43,7 @@ function CardDetail({ item }) {
                     Show
                 </Button>
             </SheetTrigger>
-            <SheetContent className="overflow-auto">
+            <SheetContent side={isDesktop ? "right" : "bottom"} className="overflow-auto">
                 <div className="mb-2 flex items-center gap-x-3">
                     <Button type="button" size="icon-sm" variant="outline" onClick={handleClickEdit}>
                         <ButtonIcon icon={IconPencil} />
