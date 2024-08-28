@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
         ->only(['index', 'store', 'update', 'destroy']);
 
     Route::resource('cards.images', CardImageController::class)
-        ->only(['index', 'store']);
+        ->only(['index', 'store', 'destroy']);
 });
 
 require __DIR__ . '/auth.php';

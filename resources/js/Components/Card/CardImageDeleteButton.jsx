@@ -14,6 +14,10 @@ import {
     AlertDialogTrigger,
 } from "@/Components/UI/AlertDialog"
 import { Button, ButtonIcon, ButtonLoader } from "@/Components/UI/Button"
+import { toast } from "sonner"
+import { isAxiosError } from "axios"
+import axios from "axios"
+import { useCardImages } from "@/hooks/use-card"
 
 /**
  * @typedef {Object} CardImageDeleteButtonProps
@@ -23,13 +27,23 @@ import { Button, ButtonIcon, ButtonLoader } from "@/Components/UI/Button"
 
 /** @param {CardImageDeleteButtonProps} props */
 function CardImageDeleteButton({ id, imageId }) {
+    const { mutate } = useCardImages(id)
     const [isProcessing, setIsProcessing] = useState(false)
 
-    function handleClickContinue() {
-        router.delete(`/cards/${id}/images/${imageId}`, {
-            onStart: () => setIsProcessing(true),
-            onFinish: () => setIsProcessing(false),
-        })
+    async function handleClickContinue() {
+        setIsProcessing(true)
+
+        try {
+            await axios.delete(`/cards/${id}/images/${imageId}`)
+
+            await mutate()
+        } catch (error) {
+            toast.error("Uh oh, something went wrong", {
+                description: isAxiosError(error) ? error.response.data.message || "Unknown error occurred." : "Unknown error occurred."
+            })
+        } finally {
+            setIsProcessing(false)
+        }
     }
 
     return (
