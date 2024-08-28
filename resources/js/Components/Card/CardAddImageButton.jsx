@@ -50,6 +50,7 @@ function CardAddImageButton({ id }) {
 
                 <div className="mt-4 max-h-[525px] overflow-auto">
                     <FilePond
+                        acceptedFileTypes={["image/*"]}
                         allowMultiple
                         allowRevert={false}
                         server={{
