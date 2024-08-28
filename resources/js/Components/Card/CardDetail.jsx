@@ -15,6 +15,7 @@ import {
 import { CardDeleteButton } from "./CardDeleteButton";
 import { CardDetailImages } from "./CardDetailImages";
 import { EditCardForm } from "./EditCardForm";
+import { VisuallyHidden } from "../UI/VisuallyHidden";
 
 /**
  * @typedef {object} CardDetailProps
@@ -54,6 +55,12 @@ function CardDetail({ item }) {
                     {!isEditingMode && (
                         <SheetTitle>{item.title}</SheetTitle>
                     )}
+
+                    <SheetDescription>
+                        <VisuallyHidden>
+                            {item.content || "No Content"}
+                        </VisuallyHidden>
+                    </SheetDescription>
                 </SheetHeader>
 
                 {!isEditingMode && (
