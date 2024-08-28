@@ -14,6 +14,7 @@ import {
     AlertDialogTrigger,
 } from "@/Components/UI/AlertDialog";
 import { Button, ButtonIcon, ButtonLoader } from "@/Components/UI/Button";
+import { toast } from "sonner";
 
 /** 
  * @typedef {object} CardDeleteButtonProps
@@ -29,6 +30,11 @@ function CardDeleteButton({ id, title }) {
         router.delete(`/cards/${id}`, {
             onStart: () => setIsProcessing(true),
             onFinish: () => setIsProcessing(false),
+            onSuccess: () => {
+                toast.success("Card deleted successfully", {
+                    description: `The card has been deleted and can no longer be viewed or edited.`
+                })
+            }
         });
     }
 
