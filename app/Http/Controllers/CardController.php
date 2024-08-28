@@ -6,6 +6,7 @@ use App\Helpers\InertiaHelper;
 use App\Models\Card;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class CardController extends Controller
 {
@@ -52,6 +53,8 @@ class CardController extends Controller
         Gate::authorize('delete', $card);
 
         $card->delete();
+
+        Storage::disk('public')->deleteDirectory('images/cards/' . $card->id);
 
         return back();
     }
