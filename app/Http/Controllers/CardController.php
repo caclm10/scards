@@ -12,7 +12,7 @@ class CardController extends Controller
 {
     public function index(): \Inertia\Response
     {
-        $cards = fn() => Card::with(['images'])
+        $cards = fn() => Card::query()
             ->where('user_id', auth()->guard()->id())
             ->latest()
             ->get();
