@@ -15,7 +15,10 @@ function RootLayout({ title, children }) {
 
     return (
         <>
-            <Head title={fullTitle} />
+            <Head>
+                <title>{fullTitle}</title>
+                <meta name="description" content="Organize your notes with style" />
+            </Head>
 
             {children}
 
