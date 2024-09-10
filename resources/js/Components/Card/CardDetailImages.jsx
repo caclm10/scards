@@ -1,11 +1,12 @@
 import { useState } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { FreeMode, Thumbs } from "swiper/modules"
+import { Controller, FreeMode, Thumbs } from "swiper/modules"
 import { IconPhoto } from "@tabler/icons-react"
 
+import { useCardImages } from "@/hooks/use-card"
 import { CardImageDeleteButton } from "./CardImageDeleteButton"
 import { CardAddImageButton } from "./CardAddImageButton"
-import { useCardImages } from "@/hooks/use-card"
+import { SimpleLightbox } from "../SimpleLightbox"
 
 /**
  * @typedef {Object} CardDetailImagesProps
@@ -22,7 +23,12 @@ function CardDetailImages({ cardId }) {
     /** @type {ReturnType<typeof useState<import("swiper/types").Swiper | null>>} */
     const [thumbsSwiper, setThumbsSwiper] = useState(null)
 
+    /** @type {ReturnType<typeof useState<import("swiper/types").Swiper | null>>} */
+    const [lightboxSwiper, setLightboxSwiper] = useState(null)
+
     const [currentImage, setCurrentImage] = useState(0)
+
+    const [isLightboxOpen, setIsLightboxOpen] = useState(false)
 
     /** @param {import("swiper/types").Swiper} swiper */
     function handleActiveIndexChange(swiper) {
@@ -65,16 +71,17 @@ function CardDetailImages({ cardId }) {
                         <Swiper
                             className="mb-2"
                             thumbs={{ swiper: thumbsSwiper }}
-                            modules={[FreeMode, Thumbs]}
+                            modules={[FreeMode, Thumbs, Controller]}
+                            controller={{ control: lightboxSwiper }}
                             onSwiper={setSwiper}
                             onActiveIndexChange={handleActiveIndexChange}
                         >
                             {images.map((image) => (
-                                <SwiperSlide key={image.id}>
+                                <SwiperSlide key={image.id} onClick={() => setIsLightboxOpen(true)}>
                                     <img
                                         src={image.url}
                                         alt="Card Image"
-                                        className="aspect-video w-full rounded-md object-cover"
+                                        className="aspect-video w-full rounded-md object-cover cursor-pointer"
                                     />
                                 </SwiperSlide>
                             ))}
@@ -113,6 +120,14 @@ function CardDetailImages({ cardId }) {
                     )}
                 </div>
             </div>
+
+            <SimpleLightbox
+                images={images}
+                control={swiper}
+                isOpen={isLightboxOpen}
+                onSwiper={setLightboxSwiper}
+                onOpenChange={setIsLightboxOpen}
+            />
         </>
     )
 }
