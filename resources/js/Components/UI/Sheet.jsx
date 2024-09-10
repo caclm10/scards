@@ -16,9 +16,9 @@ const SheetPortal = SheetPrimitive.Portal
 
 const SheetOverlay = React.forwardRef(
     /**
-     * 
+     *
      * @param {React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>} props
-     * @param {React.ElementRef<typeof SheetPrimitive.Overlay>} ref 
+     * @param {React.ElementRef<typeof SheetPrimitive.Overlay>} ref
      */
     ({ className, ...props }, ref) => (
         <SheetPrimitive.Overlay
@@ -53,16 +53,16 @@ const sheetVariants = cva(
 
 const SheetContent = React.forwardRef(
     /**
-     * 
+     *
      * @param {React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> & import("class-variance-authority").VariantProps<typeof sheetVariants>} props
-     * @param {React.ElementRef <typeof SheetPrimitive.Content>} ref 
+     * @param {React.ElementRef <typeof SheetPrimitive.Content>} ref
      */
     ({ side = "right", className, children, ...props }, ref) => (
         <SheetPortal>
             <SheetOverlay />
             <SheetPrimitive.Content
                 ref={ref}
-                className={cn(sheetVariants({ side }), className)}
+                className={cn(sheetVariants({ side }), "max-h-full", className)}
                 {...props}
             >
                 {children}
@@ -101,9 +101,9 @@ SheetFooter.displayName = "SheetFooter"
 
 const SheetTitle = React.forwardRef(
     /**
-     * 
+     *
      * @param {React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>} props
-     * @param {React.ElementRef<typeof SheetPrimitive.Title>} ref 
+     * @param {React.ElementRef<typeof SheetPrimitive.Title>} ref
      */
     ({ className, ...props }, ref) => (
         <SheetPrimitive.Title
@@ -116,9 +116,9 @@ SheetTitle.displayName = SheetPrimitive.Title.displayName
 
 const SheetDescription = React.forwardRef(
     /**
-     * 
+     *
      * @param {React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>} props
-     * @param {React.ElementRef<typeof SheetPrimitive.Description>} ref 
+     * @param {React.ElementRef<typeof SheetPrimitive.Description>} ref
      */
     ({ className, ...props }, ref) => (
         <SheetPrimitive.Description
