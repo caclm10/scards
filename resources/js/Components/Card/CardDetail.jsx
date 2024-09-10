@@ -67,7 +67,7 @@ function CardDetail({ item }) {
                 </SheetHeader>
 
                 {!isEditingMode && (
-                    <p className={cn("whitespace-pre-line text-sm mt-2", { "text-xs italic": !item.content })}>
+                    <p className={cn("whitespace-pre-line text-sm mt-2 text-justify", { "text-xs italic": !item.content })}>
                         {item.content || "No Content"}
                     </p>
                 )}
